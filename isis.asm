@@ -1,3 +1,9 @@
+;Dialog:
+;drawStr line, 1, 20, character color, black
+;character colors:
+;i = red, i2 = dred, k = blue, u = green
+;
+
 format MZ
 include 'gameLib.asm'
 entry main:start
@@ -11,28 +17,18 @@ start:
 	
 	startVGA
 	call funs:drawBG
-	drawStr msg, 1, 1, red, sand
+
+	getch
 	
 	call funs:exit
 
 segment text
 msg db 'Starting VGA...$'
+msg1 db 'Ye$'
 
 segment funs
 drawBG:
 	drawRectFill sand, 0, 0, 319, 199
-	retf
-
-i:
-	retf
-
-i2:
-	retf
-
-u:
-	retf
-
-k:
 	retf
 	
 exit:
