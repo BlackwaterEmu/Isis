@@ -16,11 +16,13 @@ start:
 	print msg
 	
 	startVGA
-	call funs:drawBG
+	call funs:drawBG ; because there is no faster method to clear pixels than overwriting the whole screen
+	call funs:i
 	drawStr m1, 1, 20, red, black
 	getch
 	
 	call funs:drawBG
+	call funs:i
 	drawStr m1c, 1, 20, red, black
 	getch
 	
@@ -32,9 +34,13 @@ m1 db 'You think we could be furthering our$'
 m1c db 'good cause?$'
 
 m2 db 'Wut ya mean m8?$'
-m3 db 'You know like by donating these dead peoples blood.$'
+
+m3 db 'You know like by donating these dead$'
+m3c db 'peoples blood.$'
+
 m4 db 'It would be like 5L to a pint.$'
-m5 db 'That', 27h,'s over ten times the amount of blood per person.$'
+m5 db 'That', 27h,'s over ten times the$'
+m5c db 'amount of blood per person.$'
 m6 db 'Ye, but if people actually needed blood$'
 m7 db 'then they', 27h,'d let homosexuals donate.$'
 m8 db 'But we don', 27h,'t like gay people.$'
@@ -86,6 +92,46 @@ segment funs
 drawBG:
 	drawRectFill sand, 0, 0, 319, 199
 	retf
+	
+decapSim:
+	;draw stuff
+	getch
+	cmp al, 20 ;space
+	jne go
+	retf
+	
+i:
+	drawRectFill black, 140, 10, 170, 30 ;head
+	drawRectFill red, 140, 30, 170, 120 ;body
+	drawRectFill red, 130, 30, 140, 90 ;arms
+	drawRectFill red, 170, 30, 180, 90
+	retf
+	
+i2:
+	drawRectFill black, 140, 10, 170, 30 ;head
+	drawRectFill dred, 140, 30, 170, 120 ;body
+	drawRectFill dred, 130, 30, 140, 90 ;arms
+	drawRectFill dred, 170, 30, 180, 90
+	retf
+	
+k:
+	drawRectFill black, 140, 10, 170, 30 ;head
+	drawRectFill blue, 140, 30, 170, 120 ;body
+	drawRectFill blue, 130, 30, 140, 90 ;arms
+	drawRectFill blue, 170, 30, 180, 90
+	retf
+
+u:
+	drawRectFill black, 140, 10, 170, 30 ;head
+	drawRectFill green, 140, 30, 170, 120 ;body
+	drawRectFill green, 130, 30, 140, 90 ;arms
+	drawRectFill green, 170, 30, 180, 90
+	retf
+
+go:
+	;draw game over screen
+	mov ah, 4ch
+	int 21h
 	
 exit:
 	mov ah, 4ch
