@@ -30,7 +30,7 @@ start:
 
 segment text
 msg db 'Starting VGA...$'
-m1 db 'You think we could be furthering our$'
+m1 db 'You think we could be furthering our$' ;36 chars, should be limit of msgs.
 m1c db 'good cause?$'
 
 m2 db 'Wut ya mean m8?$'
