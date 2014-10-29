@@ -26,6 +26,13 @@ start:
 	drawStr m1c, 1, 20, red, black
 	getch
 	
+	call funs:drawBG
+	call funs:i2
+	drawStr m2, 1, 20, dred, black
+	getch
+	
+	call funs:go; here for testing
+	
 	call funs:exit
 
 segment text
@@ -88,6 +95,8 @@ m43 db 'Oh boy. How about you guys come with me$'
 m44 db 'to murka and we treat woman like objects?$'
 m45 db 'Sounds like a blast. Ha ha ha.$'
 
+gomsg db 'Game Over$'
+
 segment funs
 drawBG:
 	drawRectFill sand, 0, 0, 319, 199
@@ -129,7 +138,9 @@ u:
 	retf
 
 go:
-	;draw game over screen
+	drawRectFill black, 0, 0, 319, 199
+	drawStr gomsg, 7, 37, dred, black
+	getch
 	mov ah, 4ch
 	int 21h
 	
