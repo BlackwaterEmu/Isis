@@ -173,7 +173,7 @@ m15 db 'Wait, I thought he was muslim.$'
 
 m16 db 'Shit! We should', 27h,'ve killed WBC instead.$'
 
-m17 db 'Don', 27h,'t they hate gay people too?$'
+m17 db 'Don', 27h,'t they hate gays too?$'
 
 m18 db 'Yes, but they believe in God.$'
 
@@ -187,33 +187,59 @@ m22 db 'I don', 27h,'t know anymore.'
 ;[leave to base]
 
 m23 db 'Alright, lights go kill some murkins.$'
+
 m24 db 'Yea!$'
+
 m25 db 'Wait, how old are you?$'
+
 m26 db '11.$'
+
 m27 db 'Sorry kid, this is an 18+ group.$' 
+
 ;[shoots kid]
 ;[us soljers break in]
+
 m28 db 'Die.$'
+
 ;[gun fight and both sides run out of ammo]
+
 m29 db 'Well fuck.$'
+
 m30 db 'Damn.$'
+
 m31 db 'How am I suppose to shoot them aliens$'
+
 m32 db 'when I get back home? Them jumpin over the border$'
+
 m33 db 'and cutting crop circles, stealin my beer.$'
+
 m34 db 'Wait... you hate immigrants,$'
+
 m35 db 'believe in God, and love guns?$'
+
 m36 db 'If you don', 27h,'t then you', 27h,'re a commie.$'
+
 m37 db 'That', 27h,'s right. I hate fasism too.$'
+
 m38 db 'Why are we fighting again.$'
+
 m39 db 'Cuz, um, Obama.$'
+
 m40 db 'Oh man I hate Obama.$'
+
 m41 db 'Hey! Us too.$'
+
 m42 db 'In fact, we just killed him.$'
-m43 db 'Oh boy. How about you guys come with me$'
+
+m43 db '0boy. How about u guys cum with me$'
+
 m44 db 'to murka and we treat woman like objects?$'
+
 m45 db 'Sounds like a blast. Ha ha ha.$'
 
 gomsg db 'Game Over$'
+
+win db 'Ye Win!$'
 
 segment funs
 drawBG:
