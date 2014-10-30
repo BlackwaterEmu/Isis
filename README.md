@@ -1,4 +1,4 @@
-Isis
+<a href="https://www.youtube.com/watch?v=WTA7YWVq_58">Isis</a>
 ====
 
 A game where you play as a member of isis.
@@ -15,7 +15,7 @@ So is the genocide of animals. Why don't you put down that cheeseburger?
 You're a sick and immoral person for thinking that.
 
 # Features
-- VGA Graphics!
+- In depth VGA Graphics!
 - Optimized assembly so fast and small!
 - 32 bits of awesomeness!
 - Dialog that took more than two minutes to type in leafpad!
