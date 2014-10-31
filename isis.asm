@@ -209,8 +209,93 @@ start:
 	getch
 
 debug:
-
+	
 	call funs:shooter
+
+	call funs:drawBG
+	call funs:i2
+	drawStr m29, 1, 20, dred
+	getch
+	
+	call funs:drawBG
+	call funs:u
+	drawStr m30, 1, 20, dgreen
+	getch
+	
+	call funs:drawBG
+	call funs:u
+	drawStr m31, 1, 20, dgreen
+	getch
+	
+	call funs:drawBG
+	call funs:u
+	drawStr m32, 1, 20, dgreen
+	getch
+	
+	call funs:drawBG
+	call funs:u
+	drawStr m33, 1, 20, dgreen
+	getch
+	
+	call funs:drawBG
+	call funs:i
+	drawStr m34, 1, 20, red
+	getch
+	
+	call funs:drawBG
+	call funs:i
+	drawStr m35, 1, 20, red
+	getch
+	
+	call funs:drawBG
+	call funs:u
+	drawStr m36, 1, 20, dgreen
+	getch
+	
+	call funs:drawBG
+	call funs:i
+	drawStr m37, 1, 20, red
+	getch
+	
+	call funs:drawBG
+	call funs:u
+	drawStr m38, 1, 20, dgreen
+	getch
+	
+	call funs:drawBG
+	call funs:i
+	drawStr m39, 1, 20, red
+	getch
+	
+	call funs:drawBG
+	call funs:u
+	drawStr m40, 1, 20, dgreen
+	getch
+	
+	call funs:drawBG
+	call funs:i
+	drawStr m41, 1, 20, red
+	getch
+	
+	call funs:drawBG
+	call funs:i
+	drawStr m42, 1, 20, red
+	getch
+	
+	call funs:drawBG
+	call funs:u
+	drawStr m43, 1, 20, dgreen
+	getch
+	
+	call funs:drawBG
+	call funs:u
+	drawStr m44, 1, 20, dgreen
+	getch
+	
+	call funs:drawBG
+	call funs:i
+	drawStr m45, 1, 20, red
+	getch
 	
 wing:
 	call funs:gw
@@ -256,44 +341,25 @@ m24 db 'Yea!$'
 m25 db 'Wait, how old are you?$'
 m26 db '11.$'
 m27 db 'Sorry kid, this is an 18+ group.$' ;[shoots kid]
-
 ;[us soljers break in]
 m28 db 'Die.$'
-
 ;[gun fight and both sides run out of ammo]
-
 m29 db 'Well fuck.$'
-
 m30 db 'Damn.$'
-
-m31 db 'How am I suppose to shoot them aliens$'
-
-m32 db 'when I get back home? Them jumpin over the border$'
-
-m33 db 'and cutting crop circles, stealin my beer.$'
-
+m31 db 'How am I suppose to shoot em aliens$'
+m32 db 'when I get back home? jumpin over the$'
+m33 db 'border and cuttin crop circles.$'
 m34 db 'Wait... you hate immigrants,$'
-
 m35 db 'believe in God, and love guns?$'
-
 m36 db 'If you don', 27h,'t then you', 27h,'re a commie.$'
-
 m37 db 'That', 27h,'s right. I hate fasism too.$'
-
 m38 db 'Why are we fighting again.$'
-
 m39 db 'Cuz, um, Obama.$'
-
 m40 db 'Oh man I hate Obama.$'
-
 m41 db 'Hey! Us too.$'
-
 m42 db 'In fact, we just killed him.$'
-
 m43 db '0boy. How about u guys cum with me$'
-
-m44 db 'to murka and we treat woman like objects?$'
-
+m44 db 'to murka nd treat woman leik objects?$'
 m45 db 'Sounds like a blast. Ha ha ha.$'
 
 gomsg db 'Game Over$'
@@ -301,6 +367,9 @@ gomsg db 'Game Over$'
 win db 'Ye Win!$'
 
 segment funs
+xpos dw 100
+dxpos dw 110
+
 drawBG:
 	drawRectFill sand, 0, 0, 319, 199
 	retf
@@ -359,10 +428,15 @@ gw:
 	mov ah, 4ch
 	int 21h
 	
+	
+;if b kills u then jmp win, if out of ammo then retf, if b kills i then go
 shooter:
+	mov [xpos], 100
+	mov [dxpos], 110
+sshooter:
 	call funs:drawBG
 	drawRect dgreen, 300, 100, 310, 110 ; change to move to player
-	drawRect red, 20, 100, 30, 110 ; change y from input
+	drawRect red, 20, [xpos], 30, [dxpos] ; change y from input
 	getch
 	cmp al, 20h
 	je gw
@@ -370,11 +444,18 @@ shooter:
 	je down
 	cmp al, 'k'
 	je up
-	;if b kills u then jmp win, if out of ammo then retf, if b kills i then go
-	jmp shooter
+	jmp sshooter
+	
+	
+	;add collision detection
 	up:
+		add [xpos], 10
+		add [dxpos], 10
+		jmp sshooter
 	down:
-	jmp shooter
+		sub [xpos], 10
+		sub [dxpos], 10
+		jmp sshooter
 	
 exit:
 	mov ah, 4ch

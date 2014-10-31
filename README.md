@@ -19,8 +19,9 @@ You're a sick and immoral person for thinking that.
 - Optimized assembly so fast and small!
 - 32 bits of awesomeness!
 - Dialog that took more than two minutes to type in leafpad!
+- Alternative endings!
 
 # Controls
-- Enter to view next dialog.
+- Line feed to view next dialog.
 - In gun fight: j = down, k = up.
 - Other controls will be given during gameplay.
