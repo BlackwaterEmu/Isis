@@ -23,5 +23,5 @@ You're a sick and immoral person for thinking that.
 
 # Controls
 - Line feed to view next dialog.
-- In gun fight: j = down, k = up.
+- In gun fight: j = down, k = up, spacebar = shoot.
 - Other controls will be given during gameplay.

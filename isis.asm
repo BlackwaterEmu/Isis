@@ -16,12 +16,11 @@ start:
 	print msg
 	
 	startVGA
+	
 	call funs:drawBG ; because there is no faster method to clear pixels than overwriting the whole screen
 	call funs:i
 	drawStr m1, 1, 20, red
 	getch
-	
-	jmp debug
 	
 	call funs:drawBG
 	call funs:i
@@ -208,8 +207,6 @@ start:
 	drawStr m28, 1, 20, dgreen
 	getch
 
-debug:
-	
 	call funs:shooter
 
 	call funs:drawBG
@@ -446,8 +443,8 @@ sshooter:
 	drawRect red, 20, [ypos], 30, [dypos]
 	cmp [shotsFired], 1
 	jne noshot
-	add [bxpos], 20
-	add [dbxpos], 20
+	add [bxpos], 30
+	add [dbxpos], 30
 	sub [ebxpos], 40
 	sub [edbxpos], 40
 	drawRectFill black, [bxpos], [bypos], [dbxpos], [dbypos]
@@ -461,15 +458,14 @@ sshooter:
 	je gw
 	
 	e:
-	cmp [ebxpos], 20
+	cmp [ebxpos], 30
 	jge noshot
-	cmp [ebxpos], 20
-	jl noshit
 	mov dx, [bypos]
 	sub dx, 5
 	cmp dx, [ypos]
 	je go
-	jne noshot
+	cmp [ebxpos], 20
+	jl noshit
 	
 	noshit:
 		mov [ebxpos], 0
@@ -483,7 +479,7 @@ sshooter:
 		je down
 		cmp al, 'k'
 		je up
-		jmp sshooter
+		jmp noshot
 	
 	shoot:
 		cmp [ammo], 0
