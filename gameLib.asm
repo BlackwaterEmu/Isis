@@ -1,11 +1,14 @@
 include 'loops.asm'
 
 blue equ 99
-sand equ 06h
+dblue equ 1
+sand equ 06
 green equ 0ah
+dgreen equ 2
 red equ 0ch
 dred equ 4
 black equ 0
+white equ 0fh
 
 macro startVGA
 {
@@ -30,35 +33,12 @@ macro drawPix color, x, y
 	xor bh, bh ;Page number
 	int 10h
 }
-
-macro drawLine color, x, y, x1, y1
-{
-;find some way to approximate to ints
-;	(y1 - y)/(x1 - x) = slope
-;	if slope == 0:
-;		vertdraw color, x, y, y1
-;	if slope > 1:
-;		j = 1
-;    		while j <= slope*n:
-;        plotPixel n, (slope*(n-1)) + j
-;        ++j
-;if slope < -1:
-;    j = -1
-;    while j >= slope*n:
-;        plotPixel n, (slope*(n-1)) + j
-;        j--
-;n = x
-;while n <= x1:
-;    plotPixel n, slope*n
-;    ++n
-}
 	
-macro drawChar char, x, y, color, bgcolor
+macro drawChar char, x, y, color
 {
 	mov dh, y
 	mov dl, x
 	mov al, char ;ex:41h=A
-	mov bh, bgcolor ;ex:0=Black
 	mov bl, color ;ex:4=Red
 	
 	mov ah, 02 ;Set cursor position
@@ -70,7 +50,7 @@ macro drawChar char, x, y, color, bgcolor
 	int 10h
 }
 
-macro drawStr msg, x, y, color, bgcolor
+macro drawStr msg, x, y, color
 {
 	xor cx, cx
 	mov si, msg
@@ -86,7 +66,7 @@ macro drawStr msg, x, y, color, bgcolor
 	.until cx=1
 		lodsb
 		push cx
-		drawChar al, dl, dh, color, bgcolor
+		drawChar al, dl, dh, color
 		pop cx
 		add dl, 1
 		sub cx, 1
@@ -98,16 +78,6 @@ macro print msg
 	mov dx, msg
 	mov ah, 9h
 	int 21h
-}
-	
-macro drawTri
-{
-
-}
-
-macro drawTriFill
-{
-
 }
 	
 macro drawRect color, x, y, x1, y1
@@ -156,32 +126,3 @@ macro drawRectFill color, x, y, x1, y1
 .endu
 }
 
-macro makeHost
-{
-
-}
-
-macro sendHostData
-{
-
-}
-
-macro recvHostData
-{
-
-}
-
-macro makeClient
-{
-
-}
-
-macro sendClientData
-{
-
-}
-
-macro recvClientData
-{
-
-}

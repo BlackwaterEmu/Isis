@@ -4,7 +4,7 @@
 A game where you play as a member of isis.
 
 # Disclaimer
-<b>THIS GAME IS SATIRE</b>
+<b>THIS GAME IS SATIRE</b><br>
 I am in no way with any school, buisness, etc on this. This is all me and my own persional code, jokes, etc.
 Do not assume that it shares the values of others I may be associated with, because most likely it doesn't.
 
@@ -19,3 +19,8 @@ You're a sick and immoral person for thinking that.
 - Optimized assembly so fast and small!
 - 32 bits of awesomeness!
 - Dialog that took more than two minutes to type in leafpad!
+
+# Controls
+- Enter to view next dialog.
+- In gun fight: j = down, k = up.
+- Other controls will be given during gameplay.
