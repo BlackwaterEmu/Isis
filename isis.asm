@@ -367,8 +367,16 @@ gomsg db 'Game Over$'
 win db 'Ye Win!$'
 
 segment funs
-xpos dw 100
-dxpos dw 110
+ypos dw 100
+dypos dw 110
+
+bxpos dw 0
+bypos dw 0
+dbxpos dw 0
+dbypos dw 0
+
+shotsFired dw 0
+ammo dw 0
 
 drawBG:
 	drawRectFill sand, 0, 0, 319, 199
@@ -409,11 +417,6 @@ u:
 	drawRectFill dgreen, 170, 30, 180, 90
 	retf
 
-macro b x, y
-{
-	drawRectFill black, x, y, x+1, y+1
-}
-
 go:
 	drawRectFill black, 0, 0, 319, 199
 	drawStr gomsg, 7, 37, dred
@@ -429,33 +432,71 @@ gw:
 	int 21h
 	
 	
-;if b kills u then jmp win, if out of ammo then retf, if b kills i then go
+;add enemy shooting
 shooter:
-	mov [xpos], 100
-	mov [dxpos], 110
+	mov [ypos], 100
+	mov [dypos], 110
+	mov [ammo], 5
+	
 sshooter:
 	call funs:drawBG
-	drawRect dgreen, 300, 100, 310, 110 ; change to move to player
-	drawRect red, 20, [xpos], 30, [dxpos] ; change y from input
-	getch
-	cmp al, 20h
+	drawRect dgreen, 300, 100, 310, 110
+	drawRect red, 20, [ypos], 30, [dypos]
+	cmp [shotsFired], 1
+	jne noshot
+	add [bxpos], 20
+	add [dbxpos], 20
+	drawRectFill black, [bxpos], [bypos], [dbxpos], [dbypos]
+	cmp [dbxpos], 300
+	jle noshot
+	mov [shotsFired], 0
+	mov dx, [bypos]
+	sub dx, 5
+	cmp dx, 100
 	je gw
-	cmp al, 'j'
-	je down
-	cmp al, 'k'
-	je up
-	jmp sshooter
-	
-	
-	;add collision detection
-	up:
-		add [xpos], 10
-		add [dxpos], 10
+	cmp [ammo], 0
+	je r
+	noshot:
+		getch
+		cmp al, 20h
+		je shoot
+		cmp al, 'j'
+		je down
+		cmp al, 'k'
+		je up
 		jmp sshooter
+	
+	shoot:
+		cmp [ammo], 0
+		je cshoot
+		sub [ammo], 1
+		mov dx, [ypos]
+		add dx, 5
+		mov [bypos], dx
+		add dx, 1
+		mov [dbypos], dx
+		mov [bxpos], 30
+		mov [dbxpos], 31
+		
+		drawRectFill black, [bxpos], [bypos], [dbxpos], [dbypos]
+		mov [shotsFired], 1
+		cshoot:
+			jmp sshooter
+	
 	down:
-		sub [xpos], 10
-		sub [dxpos], 10
+		cmp [dypos], 190
+		je sshooter
+		add [ypos], 10
+		add [dypos], 10
 		jmp sshooter
+	up:
+		cmp [ypos], 10
+		je sshooter
+		sub [ypos], 10
+		sub [dypos], 10
+		jmp sshooter
+	r:
+		retf
 	
 exit:
 	mov ah, 4ch
