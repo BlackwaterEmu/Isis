@@ -371,9 +371,11 @@ ypos dw 100
 dypos dw 110
 
 bxpos dw 0
+ebxpos dw 0
 bypos dw 0
 dbxpos dw 0
 dbypos dw 0
+edbxpos dw 0
 
 shotsFired dw 0
 ammo dw 0
@@ -440,22 +442,39 @@ shooter:
 	
 sshooter:
 	call funs:drawBG
-	drawRect dgreen, 300, 100, 310, 110
+	drawRect dgreen, 300, [ypos], 310, [dypos]
 	drawRect red, 20, [ypos], 30, [dypos]
 	cmp [shotsFired], 1
 	jne noshot
 	add [bxpos], 20
 	add [dbxpos], 20
+	sub [ebxpos], 40
+	sub [edbxpos], 40
 	drawRectFill black, [bxpos], [bypos], [dbxpos], [dbypos]
+	drawRectFill black, [edbxpos], [bypos], [ebxpos], [dbypos]
 	cmp [dbxpos], 300
-	jle noshot
+	jle e
 	mov [shotsFired], 0
 	mov dx, [bypos]
 	sub dx, 5
-	cmp dx, 100
+	cmp dx, [ypos]
 	je gw
-	cmp [ammo], 0
-	je r
+	
+	e:
+	cmp [ebxpos], 20
+	jge noshot
+	cmp [ebxpos], 20
+	jl noshit
+	mov dx, [bypos]
+	sub dx, 5
+	cmp dx, [ypos]
+	je go
+	jne noshot
+	
+	noshit:
+		mov [ebxpos], 0
+		mov [edbxpos], 0
+	
 	noshot:
 		getch
 		cmp al, 20h
@@ -470,6 +489,8 @@ sshooter:
 		cmp [ammo], 0
 		je cshoot
 		sub [ammo], 1
+		cmp [ammo], 0
+		je r
 		mov dx, [ypos]
 		add dx, 5
 		mov [bypos], dx
@@ -477,7 +498,9 @@ sshooter:
 		mov [dbypos], dx
 		mov [bxpos], 30
 		mov [dbxpos], 31
-		
+		mov [ebxpos], 290
+		mov [edbxpos], 289
+
 		drawRectFill black, [bxpos], [bypos], [dbxpos], [dbypos]
 		mov [shotsFired], 1
 		cshoot:
