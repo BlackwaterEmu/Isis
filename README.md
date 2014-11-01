@@ -25,3 +25,6 @@ You're a sick and immoral person for thinking that.
 - Line feed to view next dialog.
 - In gun fight: j = down, k = up, spacebar = shoot.
 - Other controls will be given during gameplay.
+
+# I can't get it to run
+An executable for windows will distributed for windows eventually, but for now use dosbox.

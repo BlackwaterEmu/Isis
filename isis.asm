@@ -1,9 +1,3 @@
-;Dialog:
-;drawStr line, 1, 20, character color
-;character colors:
-;i = red, i2 = dred, k = blue, u = green
-;
-
 format MZ
 include 'gameLib.asm'
 entry main:start
